@@ -19,7 +19,7 @@ public class IngredienteService {
     //criando CRUD
 
     //listar
-    public List<Ingrediente> listarTodas(){
+    public List<Ingrediente> listarTodos(){
         return ingredienteRepo.findAll();
     }
 

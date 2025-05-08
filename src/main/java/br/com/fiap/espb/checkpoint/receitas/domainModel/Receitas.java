@@ -15,7 +15,7 @@ public class Receitas {
     private String descricao;
     private int tempoDePreparo;
 
-    @OneToMany(mappedBy = "receitas", cascade = CascadeType.ALL, orphanRemoval = true) //mapenando a chave estrangeira. Referencia dos ingredientes.
+    @OneToMany(mappedBy = "receita", cascade = CascadeType.ALL, orphanRemoval = true) //mapenando a chave estrangeira. Referencia dos ingredientes.
     private List<Ingrediente> ingredientes = new ArrayList<>();
 
     //Criando o get e set para tornar os atributos publicos

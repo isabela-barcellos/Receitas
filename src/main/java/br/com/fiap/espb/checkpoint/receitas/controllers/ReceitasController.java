@@ -23,11 +23,11 @@ public class ReceitasController {
         return ResponseEntity.ok(service.listarTodas());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{idReceita}")
     public ResponseEntity<Receitas> buscarId(@PathVariable int idReceita) {
         return service.buscarId(idReceita).map(ResponseEntity::ok).orElseThrow(() -> new ResourceNotFoundException("Receita não encontrada com o id: " + idReceita));
     }
-
+//trocando idReceita por id
     @PostMapping
     public ResponseEntity<Receitas> criarReceita(@RequestBody Receitas receita) {
         Receitas novaReceita = service.inserir(receita);
@@ -35,7 +35,7 @@ public class ReceitasController {
     }
     //201 - protocolo http criado
 
-    @PutMapping("/{id}")
+    @PutMapping("/{idReceita}")
     public ResponseEntity<Receitas> atualizarReceita(@PathVariable int idReceita, @RequestBody Receitas receitaAtualizada) {
         Receitas receita = service.buscarId(idReceita).orElseThrow(() -> new ResourceNotFoundException("Receita não encontrada com o id: " + idReceita));
         receita.setNome(receitaAtualizada.getNome());
@@ -44,7 +44,7 @@ public class ReceitasController {
         return ResponseEntity.ok(service.inserir(receita));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idReceita}")
     public ResponseEntity<Void> deletarReceita(@PathVariable int idReceita) {
         Receitas receita = service.buscarId(idReceita).orElseThrow(() -> new ResourceNotFoundException("Receita não encontrada com o id: " + idReceita));
         service.deletar(receita.getIdReceitas());

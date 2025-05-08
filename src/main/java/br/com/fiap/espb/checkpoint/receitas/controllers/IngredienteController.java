@@ -26,7 +26,7 @@ public class IngredienteController {
         return ResponseEntity.ok(service.listarTodos());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{idIngrediente}")
     public ResponseEntity<Ingrediente> buscarId(@PathVariable int idIngrediente) {
         return service.listarTodos().stream().filter(i -> Objects.equals(i.getIdIngrediente(), idIngrediente)).findFirst().map(ResponseEntity::ok).orElseThrow(() -> new ResourceNotFoundException("Ingrediente não encontrado para o id: " + idIngrediente));
 
@@ -37,7 +37,7 @@ public class IngredienteController {
         return ResponseEntity.status(201).body(service.inserir(ingrediente));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{idIngrediente}")
     public ResponseEntity<Ingrediente> atualizarIngrediente(@PathVariable int idIngrediente,
                                                             @RequestBody Ingrediente ingredienteAtualizado){
         Ingrediente ingrediente = service.listarTodos().stream().filter(i -> Objects.equals(i.getIdIngrediente(),
@@ -49,7 +49,7 @@ public class IngredienteController {
        return ResponseEntity.ok(service.inserir(ingrediente));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idIngrediente}")
     public ResponseEntity<Void> deletarIngrediente(@PathVariable int idIngrediente){
         service.deletar(idIngrediente);
         return ResponseEntity.noContent().build();

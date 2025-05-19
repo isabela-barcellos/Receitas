@@ -1,9 +1,5 @@
 package br.com.fiap.espb.checkpoint.receitas.controllers;
-
-import br.com.fiap.espb.checkpoint.receitas.domainModel.Receitas;
 import br.com.fiap.espb.checkpoint.receitas.dto.ReceitasDto;
-import br.com.fiap.espb.checkpoint.receitas.exception.ResourceNotFoundException;
-import br.com.fiap.espb.checkpoint.receitas.mapper.ReceitasMapper;
 import br.com.fiap.espb.checkpoint.receitas.service.ReceitasService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

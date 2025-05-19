@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Receitas e Ingredientes</title>
+</head>
+<body>
+<h1>Receitas</h1>
+<a href="/receitas/nova">Nova Receita</a>
+<ul>
+    <li th:each="r : ${receitas}">
+        <span th:text="${r.nome}">Nome</span> -
+        <span th:text="${r.descricao}">Descrição</span>
+        <a th:href="@{'/receitas/editar/' + ${r.idReceita}}">Editar</a>
+        <a th:href="@{'/receitas/excluir/' + ${r.idReceita}}">Excluir</a>
+    </li>
+</ul>
+
+<h1>Ingredientes</h1>
+<a href="/ingredientes/novo">Novo Ingrediente</a>
+<ul>
+    <li th:each="i : ${ingredientes}">
+        <span th:text="${i.nome}">Nome</span>
+        <a th:href="@{'/ingredientes/editar/' + ${i.idIngrediente}}">Editar</a>
+        <a th:href="@{'/ingredientes/excluir/' + ${i.idIngrediente}}">Excluir</a>
+    </li>
+</ul>
+</body>
+</html>

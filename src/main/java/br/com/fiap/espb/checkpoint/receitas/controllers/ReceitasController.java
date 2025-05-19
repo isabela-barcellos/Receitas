@@ -1,8 +1,11 @@
 package br.com.fiap.espb.checkpoint.receitas.controllers;
 
 import br.com.fiap.espb.checkpoint.receitas.domainModel.Receitas;
+import br.com.fiap.espb.checkpoint.receitas.dto.ReceitasDto;
 import br.com.fiap.espb.checkpoint.receitas.exception.ResourceNotFoundException;
+import br.com.fiap.espb.checkpoint.receitas.mapper.ReceitasMapper;
 import br.com.fiap.espb.checkpoint.receitas.service.ReceitasService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,37 +21,36 @@ public class ReceitasController {
     }
     //Criação do banco de dados
 
+
+//trocando idReceita por id
+    @PostMapping
+    public ResponseEntity<ReceitasDto> criarReceita(@RequestBody ReceitasDto receitasDto) {
+        ReceitasDto novaReceita = service.inserirDto(receitasDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaReceita);
+    }
+    //201 - protocolo http criado
     @GetMapping
-    public ResponseEntity<List<Receitas>> listarTodas() {
-        return ResponseEntity.ok(service.listarTodas());
+    public ResponseEntity<List<ReceitasDto>> listarReceitasDto() {
+    return ResponseEntity.ok(service.listarReceitasDto());
     }
 
     @GetMapping("/{idReceita}")
-    public ResponseEntity<Receitas> buscarId(@PathVariable int idReceita) {
-        return service.buscarId(idReceita).map(ResponseEntity::ok).orElseThrow(() -> new ResourceNotFoundException("Receita não encontrada com o id: " + idReceita));
+    public ResponseEntity<ReceitasDto> buscarId(@PathVariable int idReceita) {
+        ReceitasDto receitaDto = service.buscarId(idReceita);
+        return ResponseEntity.ok(receitaDto);
     }
-//trocando idReceita por id
-    @PostMapping
-    public ResponseEntity<Receitas> criarReceita(@RequestBody Receitas receita) {
-        Receitas novaReceita = service.inserir(receita);
-        return ResponseEntity.status(201).body(novaReceita);
-    }
-    //201 - protocolo http criado
 
     @PutMapping("/{idReceita}")
-    public ResponseEntity<Receitas> atualizarReceita(@PathVariable int idReceita, @RequestBody Receitas receitaAtualizada) {
-        Receitas receita = service.buscarId(idReceita).orElseThrow(() -> new ResourceNotFoundException("Receita não encontrada com o id: " + idReceita));
-        receita.setNome(receitaAtualizada.getNome());
-        receita.setDescricao(receitaAtualizada.getDescricao());
-        receita.setTempoDePreparo(receitaAtualizada.getTempoDePreparo());
-        return ResponseEntity.ok(service.inserir(receita));
+    public ResponseEntity<ReceitasDto> atualizarReceita(@PathVariable int idReceita,
+                                                      @RequestBody ReceitasDto receitaAtualizada) {
+        ReceitasDto receitaDto = service.atualizar(idReceita, receitaAtualizada);
+        return ResponseEntity.ok(receitaDto);
+        //protocolo http 200 - ok
     }
 
     @DeleteMapping("/{idReceita}")
     public ResponseEntity<Void> deletarReceita(@PathVariable int idReceita) {
-        Receitas receita = service.buscarId(idReceita).orElseThrow(() -> new ResourceNotFoundException("Receita não encontrada com o id: " + idReceita));
-        service.deletar(receita.getIdReceitas());
-        return ResponseEntity.noContent().build();
-        //protocolo http 204 - no Content
+      service.deletar(idReceita);
+      return ResponseEntity.noContent().build();
     }
 }

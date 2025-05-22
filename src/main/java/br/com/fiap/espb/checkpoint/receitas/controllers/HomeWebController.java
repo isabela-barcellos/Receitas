@@ -23,7 +23,7 @@ public class HomeWebController {
     @GetMapping
     public String home(Model model) {
         model.addAttribute("receitas", receitasService.listarReceitasDto());
-        model.addAttribute("ingredientes", ingredienteService.listarTodos());
+        model.addAttribute("ingredientes", ingredienteService.listarTodos()); // Padronização do nome do método
         return "home";
     }
 
@@ -31,26 +31,28 @@ public class HomeWebController {
 
     @GetMapping("/receitas/nova")
     public String novaReceitaForm(Model model) {
-        model.addAttribute("receita", new ReceitasDto());
-        return "form-receita";
+        model.addAttribute("receitas", new ReceitasDto());
+        return "form-receitas";
     }
 
     @PostMapping("/receitas")
-    public String salvarReceita(@ModelAttribute("receita") ReceitasDto receitaDto) {
+    public String salvarReceita(@ModelAttribute("receitas") ReceitasDto receitaDto) {
         receitasService.inserirDto(receitaDto);
-        return "redirect:/home";
+        return "redirect:/"; // Correção no redirecionamento
     }
 
     @GetMapping("/receitas/editar/{id}")
     public String editarReceita(@PathVariable int id, Model model) {
-        model.addAttribute("receita", receitasService.buscarId(id));
-        return "form-receita";
+        ReceitasDto receitaDto = receitasService.buscarId(id);
+        if (receitaDto == null) return "redirect:/"; // Tratamento de erro caso ID não exista
+        model.addAttribute("receitas", receitaDto);
+        return "form-receitas";
     }
 
     @GetMapping("/receitas/excluir/{id}")
-    public String excluirReceita(@PathVariable int id) {
-        receitasService.deletar(id);
-        return "redirect:/home";
+    public String excluirReceita(@PathVariable int idReceitas) {
+        receitasService.deletar(idReceitas);
+        return "redirect:/"; // Correção no redirecionamento
     }
 
     // INGREDIENTE
@@ -64,18 +66,20 @@ public class HomeWebController {
     @PostMapping("/ingredientes")
     public String salvarIngrediente(@ModelAttribute("ingrediente") IngredienteDto ingredienteDto) {
         ingredienteService.inserir(ingredienteDto);
-        return "redirect:/home";
+        return "redirect:/"; // Correção no redirecionamento
     }
 
     @GetMapping("/ingredientes/editar/{id}")
     public String editarIngrediente(@PathVariable int id, Model model) {
-        model.addAttribute("ingrediente", ingredienteService.buscarId(id));
+        IngredienteDto ingredienteDto = ingredienteService.buscarId(id);
+        if (ingredienteDto == null) return "redirect:/"; // Tratamento de erro caso ID não exista
+        model.addAttribute("ingrediente", ingredienteDto);
         return "form-ingrediente";
     }
 
     @GetMapping("/ingredientes/excluir/{id}")
     public String excluirIngrediente(@PathVariable int id) {
         ingredienteService.deletar(id);
-        return "redirect:/home";
+        return "redirect:/"; // Correção no redirecionamento
     }
 }

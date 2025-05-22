@@ -12,7 +12,7 @@ public class ReceitasMapper {
             return null;
         }
         ReceitasDto dto = new ReceitasDto();
-        dto.setIdReceita(receitas.getIdReceitas());
+        dto.setIdReceitas(receitas.getIdReceitas());
         dto.setNome(receitas.getNome());
         dto.setDescricao(receitas.getDescricao());
         dto.setTempoDePreparo(receitas.getTempoDePreparo());
@@ -29,7 +29,7 @@ public class ReceitasMapper {
             return null;
         }
         Receitas receitas = new Receitas();
-        receitas.setIdReceitas(dto.getIdReceita());
+        receitas.setIdReceitas(dto.getIdReceitas());
         receitas.setNome(dto.getNome());
         receitas.setDescricao(dto.getDescricao());
         receitas.setTempoDePreparo(dto.getTempoDePreparo());

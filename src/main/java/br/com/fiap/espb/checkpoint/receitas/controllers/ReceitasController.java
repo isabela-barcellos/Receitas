@@ -1,4 +1,5 @@
 package br.com.fiap.espb.checkpoint.receitas.controllers;
+
 import br.com.fiap.espb.checkpoint.receitas.dto.ReceitasDto;
 import br.com.fiap.espb.checkpoint.receitas.service.ReceitasService;
 import org.springframework.http.HttpStatus;
@@ -15,38 +16,46 @@ public class ReceitasController {
     public ReceitasController(ReceitasService service) {
         this.service = service;
     }
-    //Criação do banco de dados
 
-
-//trocando idReceita por id
     @PostMapping
     public ResponseEntity<ReceitasDto> criarReceita(@RequestBody ReceitasDto receitasDto) {
-        ReceitasDto novaReceita = service.inserirDto(receitasDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novaReceita);
+        try {
+            ReceitasDto novaReceita = service.inserirDto(receitasDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novaReceita);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
-    //201 - protocolo http criado
+
     @GetMapping
     public ResponseEntity<List<ReceitasDto>> listarReceitasDto() {
-    return ResponseEntity.ok(service.listarReceitasDto());
+        List<ReceitasDto> receitas = service.listarReceitasDto();
+        return receitas.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(receitas);
     }
 
-    @GetMapping("/{idReceita}")
-    public ResponseEntity<ReceitasDto> buscarId(@PathVariable int idReceita) {
-        ReceitasDto receitaDto = service.buscarId(idReceita);
-        return ResponseEntity.ok(receitaDto);
+    @GetMapping("/{id}")
+    public ResponseEntity<ReceitasDto> buscarId(@PathVariable int id) {
+        ReceitasDto receitaDto = service.buscarId(id);
+        return receitaDto != null ? ResponseEntity.ok(receitaDto) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @PutMapping("/{idReceita}")
-    public ResponseEntity<ReceitasDto> atualizarReceita(@PathVariable int idReceita,
-                                                      @RequestBody ReceitasDto receitaAtualizada) {
-        ReceitasDto receitaDto = service.atualizar(idReceita, receitaAtualizada);
-        return ResponseEntity.ok(receitaDto);
-        //protocolo http 200 - ok
+    @PutMapping("/{id}")
+    public ResponseEntity<ReceitasDto> atualizarReceita(@PathVariable int id, @RequestBody ReceitasDto receitaAtualizada) {
+        try {
+            ReceitasDto receitaDto = service.atualizar(id, receitaAtualizada);
+            return ResponseEntity.ok(receitaDto);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    @DeleteMapping("/{idReceita}")
-    public ResponseEntity<Void> deletarReceita(@PathVariable int idReceita) {
-      service.deletar(idReceita);
-      return ResponseEntity.noContent().build();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarReceita(@PathVariable int id) {
+        try {
+            service.deletar(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

@@ -3,19 +3,21 @@ package br.com.fiap.espb.checkpoint.receitas.dto;
 import java.util.List;
 
 public class ReceitasDto {
-    private int idReceita;
+    private int idReceitas;
     private String nome;
     private String descricao;
     private int tempoDePreparo;
     private List<IngredienteDto> ingredientes;
 
-    public int getIdReceita() {
-        return idReceita;
+
+    public int getIdReceitas() {
+        return idReceitas;
     }
 
-    public void setIdReceita(int idReceita) {
-        this.idReceita = idReceita;
+    public void setIdReceitas(int idReceitas) {
+        this.idReceitas = idReceitas;
     }
+
 
     public String getNome() {
         return nome;
@@ -52,8 +54,8 @@ public class ReceitasDto {
     public ReceitasDto() {
     }
 
-    public ReceitasDto(int idReceita, String nome, String descricao, int tempoDePreparo, List<IngredienteDto> ingredientes) {
-        this.idReceita = idReceita;
+    public ReceitasDto(int idReceitas, String nome, String descricao, int tempoDePreparo, List<IngredienteDto> ingredientes) {
+        this.idReceitas = idReceitas;
         this.nome = nome;
         this.descricao = descricao;
         this.tempoDePreparo = tempoDePreparo;

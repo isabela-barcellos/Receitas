@@ -10,8 +10,8 @@
     <li th:each="r : ${receitas}">
         <span th:text="${r.nome}">Nome</span> -
         <span th:text="${r.descricao}">Descrição</span>
-        <a th:href="@{'/receitas/editar/' + ${r.idReceita}}">Editar</a>
-        <a th:href="@{'/receitas/excluir/' + ${r.idReceita}}">Excluir</a>
+        <a th:href="@{'/receitas/editar/' + ${r.idReceitas}}">Editar</a>
+        <a th:href="@{'/receitas/excluir/' + ${r.idReceitas}}">Excluir</a>
     </li>
 </ul>
 

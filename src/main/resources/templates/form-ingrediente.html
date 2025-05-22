@@ -2,7 +2,80 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Ingrediente</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fef2f2; /* vermelho claro */
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #991b1b; /* vermelho escuro */
+        }
+
+        form {
+            background: #fff;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(153, 27, 27, 0.1); /* sombra vermelha suave */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #7f1d1d; /* vermelho médio */
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #fecaca; /* borda vermelho claro */
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #f87171; /* vermelho claro no foco */
+            box-shadow: 0 0 0 3px #fee2e2; /* leve brilho */
+        }
+
+        button {
+            width: 100%;
+            background: #dc2626; /* vermelho vibrante */
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #b91c1c; /* vermelho mais escuro no hover */
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #dc2626;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #991b1b;
+        }
+    </style>
 </head>
 <body>
 <h1 th:text="${ingrediente.idIngrediente == null ? 'Novo Ingrediente' : 'Editar Ingrediente'}"></h1>

@@ -2,27 +2,109 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Receitas e Ingredientes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fef2f2;
+            margin: 0;
+            padding: 40px;
+            color: #7f1d1d;
+        }
+
+        h1 {
+            border-bottom: 2px solid #dc2626;
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #991b1b;
+        }
+
+        a {
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        a:hover {
+            color: #991b1b;
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 40px;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #fecaca;
+            border-left: 6px solid #dc2626;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        li span {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        li a {
+            font-size: 14px;
+        }
+
+        .top-link {
+            display: inline-block;
+            background-color: #dc2626;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .top-link:hover {
+            background-color: #b91c1c;
+        }
+    </style>
 </head>
 <body>
+
 <h1>Receitas</h1>
-<a href="/receitas/nova">Nova Receita</a>
+<a class="top-link" href="/receitas/nova">Nova Receita</a>
 <ul>
     <li th:each="r : ${receitas}">
-        <span th:text="${r.nome}">Nome</span> -
-        <span th:text="${r.descricao}">Descrição</span>
-        <a th:href="@{'/receitas/editar/' + ${r.idReceitas}}">Editar</a>
-        <a th:href="@{'/receitas/excluir/' + ${r.idReceitas}}">Excluir</a>
+        <div>
+            <span th:text="${r.nome}">Nome</span> -
+            <span th:text="${r.descricao}">Descrição</span>
+        </div>
+        <div>
+            <a th:href="@{'/receitas/editar/' + ${r.idReceitas}}">Editar</a>
+            <a th:href="@{'/receitas/excluir/' + ${r.idReceitas}}">Excluir</a>
+        </div>
     </li>
 </ul>
 
 <h1>Ingredientes</h1>
-<a href="/ingredientes/novo">Novo Ingrediente</a>
+<a class="top-link" href="/ingredientes/novo">Novo Ingrediente</a>
 <ul>
     <li th:each="i : ${ingredientes}">
-        <span th:text="${i.nome}">Nome</span>
-        <a th:href="@{'/ingredientes/editar/' + ${i.idIngrediente}}">Editar</a>
-        <a th:href="@{'/ingredientes/excluir/' + ${i.idIngrediente}}">Excluir</a>
+        <div>
+            <span th:text="${i.nome}">Nome</span>
+        </div>
+        <div>
+            <a th:href="@{'/ingredientes/editar/' + ${i.idIngrediente}}">Editar</a>
+            <a th:href="@{'/ingredientes/excluir/' + ${i.idIngrediente}}">Excluir</a>
+        </div>
     </li>
 </ul>
+
 </body>
 </html>

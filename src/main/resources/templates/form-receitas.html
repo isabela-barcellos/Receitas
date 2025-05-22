@@ -2,7 +2,104 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Receita</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fef2f2; /* vermelho muito claro */
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #991b1b; /* vermelho escuro */
+        }
+
+        form {
+            background-color: #fff;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(153, 27, 27, 0.1);
+        }
+
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        legend {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #dc2626; /* vermelho principal */
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #7f1d1d;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #fecaca;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #f87171;
+            box-shadow: 0 0 0 3px #fee2e2;
+        }
+
+        button {
+            width: 100%;
+            background: #dc2626;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #b91c1c;
+        }
+
+        .botao-voltar {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .botao-voltar:hover {
+            text-decoration: underline;
+            color: #991b1b;
+        }
+    </style>
 </head>
 <body>
 <h1 th:text="${receitas.idReceitas == null ? 'Nova Receita' : 'Editar Receita'}"></h1>
@@ -24,7 +121,7 @@
 
         <label for="ingredientes">Ingredientes:</label>
         <select id="ingredientes" th:field="*{ingredientes}" multiple>
-            <option th:each="ingrediente : ${listaIngredientes}"
+            <option th:each="ingrediente : ${listarTodos}"
                     th:value="${ingrediente.idIngrediente}"
                     th:text="${ingrediente.nome}"></option>
         </select>
